@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  app:
+    image: kuanghaochina/distributed-key-kickoff:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"

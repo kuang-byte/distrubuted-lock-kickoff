@@ -18,9 +18,14 @@
   <description>Demo project for Spring Boot</description>
 
   <properties>
+    <!-- setup -->
     <java.version>11</java.version>
     <jib-maven-plugin.version>2.4.0</jib-maven-plugin.version>
     <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>
+    <maven.deploy.skip>true</maven.deploy.skip>
+    <!-- dependencies -->
+    <!-- plugins -->
+    <docker-compose-maven-plugin.version>4.0.0</docker-compose-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -63,16 +68,54 @@
               <password>${docker.io.password}</password>
             </auth>
             <tags>
-              <tag>${version}</tag>
-              <tag>${version}-${maven.build.timestamp}</tag>
+              <tag>${project.version}</tag>
+              <tag>${project.version}-${maven.build.timestamp}</tag>
             </tags>
           </to>
         </configuration>
         <executions>
           <execution>
-            <phase>package</phase>
+            <phase>deploy</phase>
             <goals>
               <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.dkanejs.maven.plugins</groupId>
+        <artifactId>docker-compose-maven-plugin</artifactId>
+        <version>${docker-compose-maven-plugin.version}</version>
+        <configuration>
+          <envVars>
+            <!-- TODO not sure why the env variables defined in docker-composed.yml won't be replaced" -->
+            <!--suppress UnresolvedMavenProperty -->
+            <docker.io.id>${docker.io.id}</docker.io.id>
+            <service.name>${project.name}</service.name>
+            <version>${project.version}</version>
+          </envVars>
+          <composeFile>${project.basedir}/docker/docker-compose.yml</composeFile>
+          <ignorePullFailures>true</ignorePullFailures>
+          <removeVolumes>true</removeVolumes>
+          <detachedMode>true</detachedMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>pull</id>
+            <goals>
+              <goal>pull</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>up</id>
+            <goals>
+              <goal>up</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>down</id>
+            <goals>
+              <goal>down</goal>
             </goals>
           </execution>
         </executions>

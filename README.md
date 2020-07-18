@@ -13,9 +13,9 @@ for learning distributed keys in various key-value storage
 | Docker Compose | 1.25.5     |
 
 Will include key-value storage:
+- Redis
 - Hazelcast 
 - Zookeeper
-- Redis
 - Etcd
 - Eureka
 - Consul
