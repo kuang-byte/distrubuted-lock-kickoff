@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -24,6 +24,8 @@
     <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>
     <maven.deploy.skip>true</maven.deploy.skip>
     <!-- dependencies -->
+    <redisson-spring-data-23.version>3.13.1</redisson-spring-data-23.version>
+    <lombok.version>1.18.12</lombok.version>
     <!-- plugins -->
     <docker-compose-maven-plugin.version>4.0.0</docker-compose-maven-plugin.version>
   </properties>
@@ -31,9 +33,20 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson-spring-data-23</artifactId>
+      <version>${redisson-spring-data-23.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -50,21 +63,14 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
         <version>${jib-maven-plugin.version}</version>
         <configuration>
           <to>
-            <!--suppress UnresolvedMavenProperty -->
             <image>docker.io/${docker.io.id}/${project.name}</image>
             <auth>
-              <!--suppress UnresolvedMavenProperty -->
               <username>${docker.io.username}</username>
-              <!--suppress UnresolvedMavenProperty -->
               <password>${docker.io.password}</password>
             </auth>
             <tags>
@@ -89,7 +95,6 @@
         <configuration>
           <envVars>
             <!-- TODO not sure why the env variables defined in docker-composed.yml won't be replaced" -->
-            <!--suppress UnresolvedMavenProperty -->
             <docker.io.id>${docker.io.id}</docker.io.id>
             <service.name>${project.name}</service.name>
             <version>${project.version}</version>

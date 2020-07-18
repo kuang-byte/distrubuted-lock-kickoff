@@ -12,6 +12,13 @@ for learning distributed keys in various key-value storage
 | Docker      | 2.3.0.3       |
 | Docker Compose | 1.25.5     |
 
+#### K-V storage and client 
+
+| Name | Version | Client | Version |
+| --- | :--- | :--- | :--- |
+| Redis  |  | redisson  |    |
+
+
 Will include key-value storage:
 - Redis
 - Hazelcast 
