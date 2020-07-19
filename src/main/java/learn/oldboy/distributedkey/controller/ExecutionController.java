@@ -20,10 +20,10 @@ public class ExecutionController {
   private final LockService lockService;
 
   @GetMapping("/redis/task/{id}")
-  public Mono<ResponseEntity<String>> execute(@PathVariable(name = "id") int id) {
+  public Mono<ResponseEntity<String>> executeTask(@PathVariable(name = "id") int id) {
     return lockService
-        .acquireFairLockMono(
-            "test", getTaskSource(id).doOnSuccess(ignored -> log.info("Task {} finished", id)))
+        .acquireFairLockMono("test", getTaskSource(id))
+        .doOnSuccess(ignored -> log.info("Task {} finished", id))
         .map(num -> ResponseEntity.ok().body("done"))
         .doOnError(e -> log.error(e.getMessage()))
         .onErrorResume(
