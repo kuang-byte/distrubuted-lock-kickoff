@@ -1,0 +1,40 @@
+---
+spring:
+  profiles: redis-single
+oldboy:
+  redis:
+    enabled-mode: SINGLE
+    single-mode:
+      address: "redis:6379"
+---
+spring:
+  profiles: redis-master-slave
+oldboy:
+  redis:
+    enabled-mode: MASTER_SLAVE
+    master-slave-mode:
+      master-address: "redis:6379"
+      slave-addresses:
+        - "redis:6380"
+---
+spring:
+  profiles: redis-sentinel
+oldboy:
+  redis:
+    enabled-mode: SENTINEL
+    sentinel-mode:
+      sentinel-addresses:
+        - "sentinel:26379"
+      master-address: "redis:6379"
+      slave-addresses:
+        - "redis:6380"
+---
+spring:
+  profiles: redis-cluster
+oldboy:
+  redis:
+    enabled-mode: CLUSTER
+    cluster-mode:
+      node-addresses:
+        - "redis:6379"
+---

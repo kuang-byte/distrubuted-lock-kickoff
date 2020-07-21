@@ -1,7 +1,7 @@
 # Distributed Lock Kickoff
 
 The goal of making this project is to provide a runnable, workable, understandable solution
-for learning distributed keys in various key-value storage
+for learning distributed keys in various key-value storage scenarios.
 
 #### Environments
 

@@ -83,6 +83,9 @@
         <artifactId>jib-maven-plugin</artifactId>
         <version>${jib-maven-plugin.version}</version>
         <configuration>
+          <from>
+            <image>openjdk:11.0.8</image>
+          </from>
           <to>
             <image>docker.io/${docker.io.id}/${project.name}</image>
             <auth>
@@ -116,9 +119,11 @@
             <version>${project.version}</version>
           </envVars>
           <composeFile>${project.basedir}/docker/docker-compose.yml</composeFile>
-          <ignorePullFailures>true</ignorePullFailures>
           <removeVolumes>true</removeVolumes>
           <detachedMode>true</detachedMode>
+          <buildArgs>
+            <alwaysPull>true</alwaysPull>
+          </buildArgs>
         </configuration>
         <executions>
           <execution>

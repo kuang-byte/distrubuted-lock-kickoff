@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class RedisConfigProperties {
 
-  private Modes enabledMode = Modes.SINGLE;
+  private Modes enabledMode;
   private SingleMode singleMode = new SingleMode();
   private MasterSlaveMode masterSlaveMode = new MasterSlaveMode();
   private SentinelMode sentinelMode = new SentinelMode();
@@ -22,7 +22,7 @@ public class RedisConfigProperties {
   @Setter
   public class SingleMode {
 
-    private String address = "localhost:6379";
+    private String address;
     private Integer connectionPoolSize;
   }
 
@@ -30,24 +30,24 @@ public class RedisConfigProperties {
   @Setter
   public class MasterSlaveMode extends HighAvailableMode {
 
-    private String masterAddress = "localhost:6379";
-    private Set<String> slaveAddresses = Set.of("localhost:6380");
+    private String masterAddress;
+    private Set<String> slaveAddresses;
   }
 
   @Getter
   @Setter
   public class SentinelMode extends HighAvailableMode {
 
-    private Set<String> sentinelAddresses = Set.of("localhost:26379");
-    private String masterAddress = "localhost:6379";
-    private Set<String> slaveAddresses = Set.of("localhost:6380");
+    private Set<String> sentinelAddresses;
+    private String masterAddress;
+    private Set<String> slaveAddresses;
   }
 
   @Getter
   @Setter
   public class ClusterMode extends HighAvailableMode {
 
-    private Set<String> nodeAddresses = Set.of("localhost:6379");
+    private Set<String> nodeAddresses;
   }
 
   @Getter

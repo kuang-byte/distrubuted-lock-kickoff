@@ -25,7 +25,7 @@ public class LockService {
         .flatMap(ignored -> source)
         .doFinally(
             signal -> {
-              log.info("Releasing fair lock with name {}", lockName);
+              log.info("Releasing fair lock with name: {}", lockName);
               lock.unlock();
             })
         .switchIfEmpty(
