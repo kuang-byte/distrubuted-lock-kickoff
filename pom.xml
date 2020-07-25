@@ -119,6 +119,7 @@
             <version>${project.version}</version>
           </envVars>
           <composeFile>${project.basedir}/docker/docker-compose.yml</composeFile>
+          <ignorePullFailures>true</ignorePullFailures>
           <removeVolumes>true</removeVolumes>
           <detachedMode>true</detachedMode>
           <buildArgs>
@@ -131,18 +132,51 @@
             <goals>
               <goal>pull</goal>
             </goals>
+            <composeFiles>
+              <composeFile>${project.basedir}/docker/docker-compose-single.yml</composeFile>
+              <composeFile>${project.basedir}/docker/docker-compose-sentinel.yml</composeFile>
+              <composeFile>${project.basedir}/docker/docker-compose-redis-cluster.yml</composeFile>
+            </composeFiles>
           </execution>
           <execution>
-            <id>up</id>
+            <id>single</id>
             <goals>
               <goal>up</goal>
             </goals>
+            <configuration>
+              <composeFile>${project.basedir}/docker/docker-compose-single.yml</composeFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>cluster</id>
+            <goals>
+              <goal>up</goal>
+            </goals>
+            <configuration>
+              <composeFile>${project.basedir}/docker/docker-compose-redis-cluster.yml</composeFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>sentinel</id>
+            <goals>
+              <goal>up</goal>
+            </goals>
+            <configuration>
+              <composeFile>${project.basedir}/docker/docker-compose-sentinel.yml</composeFile>
+            </configuration>
           </execution>
           <execution>
             <id>down</id>
             <goals>
               <goal>down</goal>
             </goals>
+            <configuration>
+              <composeFiles>
+                <composeFile>${project.basedir}/docker/docker-compose-single.yml</composeFile>
+                <composeFile>${project.basedir}/docker/docker-compose-sentinel.yml</composeFile>
+                <composeFile>${project.basedir}/docker/docker-compose-redis-cluster.yml</composeFile>
+              </composeFiles>
+            </configuration>
           </execution>
         </executions>
       </plugin>

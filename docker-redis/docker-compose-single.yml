@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  app:
+    image: kuanghaochina/distributed-key-kickoff:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=redis-single
+  single:
+    image: redis
+    ports:
+      - "6379:6379"
