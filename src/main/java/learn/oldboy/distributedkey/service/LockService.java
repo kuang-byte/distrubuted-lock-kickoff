@@ -1,4 +1,4 @@
-package learn.oldboy.distributedkey.redis.config;
+package learn.oldboy.distributedkey.service;
 
 import java.util.concurrent.TimeUnit;
 import learn.oldboy.distributedkey.exception.LockException;

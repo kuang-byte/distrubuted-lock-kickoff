@@ -5,13 +5,12 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonReactiveClient;
 import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 
+// TODO: Need an ability to turn off redis config
 @Configuration
-@ConfigurationProperties("au.assets")
 public class ReactiveRedisConfig {
 
   /**
